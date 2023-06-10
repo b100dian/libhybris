@@ -73,11 +73,7 @@ void sf_blank(size_t display_id)
 	android::sp<android::IBinder> display;
 
 	if (display_id == 0) {
-		display = android::SurfaceComposerClient::getBuiltInDisplay(
-				android::ISurfaceComposer::eDisplayIdMain);
-	} else if (display_id == 1) {
-		display = android::SurfaceComposerClient::getBuiltInDisplay(
-				android::ISurfaceComposer::eDisplayIdHdmi);
+		display = android::SurfaceComposerClient::getInternalDisplayToken();
 	} else {
 		fprintf(stderr, "Warning: sf_blank invalid display_id (0 || 1)\n");
 		return;
@@ -95,11 +91,7 @@ void sf_unblank(size_t display_id)
 	android::sp<android::IBinder> display;
 
 	if (display_id == 0) {
-		display = android::SurfaceComposerClient::getBuiltInDisplay(
-				android::ISurfaceComposer::eDisplayIdMain);
-	} else if (display_id == 1) {
-		display = android::SurfaceComposerClient::getBuiltInDisplay(
-				android::ISurfaceComposer::eDisplayIdHdmi);
+		display = android::SurfaceComposerClient::getInternalDisplayToken();
 	} else {
 		fprintf(stderr, "Warning: sf_unblank invalid display_id (0 || 1)\n");
 		return;
@@ -117,11 +109,7 @@ size_t sf_get_display_width(size_t display_id)
 	android::sp<android::IBinder> display;
 
 	if (display_id == 0) {
-		display = android::SurfaceComposerClient::getBuiltInDisplay(
-				android::ISurfaceComposer::eDisplayIdMain);
-	} else if (display_id == 1) {
-		display = android::SurfaceComposerClient::getBuiltInDisplay(
-				android::ISurfaceComposer::eDisplayIdHdmi);
+		display = android::SurfaceComposerClient::getInternalDisplayToken();
 	} else {
 		fprintf(stderr, "Warning: sf_get_display_width invalid display_id (0 || 1)\n");
 		return -1;
@@ -137,11 +125,7 @@ size_t sf_get_display_height(size_t display_id)
 	android::sp<android::IBinder> display;
 
 	if (display_id == 0) {
-		display = android::SurfaceComposerClient::getBuiltInDisplay(
-				android::ISurfaceComposer::eDisplayIdMain);
-	} else if (display_id == 1) {
-		display = android::SurfaceComposerClient::getBuiltInDisplay(
-				android::ISurfaceComposer::eDisplayIdHdmi);
+		display = android::SurfaceComposerClient::getInternalDisplayToken();
 	} else {
 		fprintf(stderr, "Warning: sf_get_display_height invalid display_id (0 || 1)\n");
 		return -1;
@@ -157,11 +141,7 @@ size_t sf_get_display_info(size_t display_id, SfDisplayInfo* display_info)
 	android::sp<android::IBinder> display;
 
 	if (display_id == 0) {
-		display = android::SurfaceComposerClient::getBuiltInDisplay(
-				android::ISurfaceComposer::eDisplayIdMain);
-	} else if (display_id == 1) {
-		display = android::SurfaceComposerClient::getBuiltInDisplay(
-				android::ISurfaceComposer::eDisplayIdHdmi);
+		display = android::SurfaceComposerClient::getInternalDisplayToken();
 	} else {
 		fprintf(stderr, "Warning: sf_get_display_info invalid display_id (0 || 1)\n");
 		return -1;
