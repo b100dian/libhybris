@@ -280,10 +280,10 @@ Requires:  %{name} = %{version}-%{release}
 cd hybris
 %reconfigure \
   --enable-wayland \
-  %{?qa_stage_devel:--enable-debug} \
-  %{?qa_stage_devel:--enable-trace} \
+  --enable-debug \
+  --enable-trace \
 %ifnarch %{ix86}
-  %{?qa_stage_devel:--enable-arm-tracing} \
+  --enable-arm-tracing \
 %endif
   --enable-property-cache \
 %ifarch %{arm}
