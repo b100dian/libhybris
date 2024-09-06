@@ -15,6 +15,7 @@ bin_PROGRAMS = \
 	test_opencl \
 	test_wifi \
 	test_hwcomposer \
+	test_ui \
 	test_nfc \
 	test_dlopen
 
