@@ -36,7 +36,8 @@ extern "C" {
 
 #include <hybris/gralloc/gralloc.h>
 
-static std::vector<HWComposerNativeWindow *> _nativewindows;
+/* EGL may retain both the HWC window and Android Surface input windows. */
+static std::vector<ANativeWindow *> _nativewindows;
 static std::mutex _nativewindows_mutex;
 
 extern "C" void hwcomposerws_init_module(struct ws_egl_interface *egl_iface)
@@ -61,21 +62,21 @@ extern "C" void hwcomposerws_releaseDisplay(_EGLDisplay *dpy)
 
 extern "C" EGLNativeWindowType hwcomposerws_CreateWindow(EGLNativeWindowType win, _EGLDisplay *display)
 {
-	HWComposerNativeWindow *window = static_cast<HWComposerNativeWindow *>((ANativeWindow *) win);
+	ANativeWindow *window = static_cast<ANativeWindow *>((ANativeWindow *) win);
 	std::lock_guard<std::mutex> lock(_nativewindows_mutex);
 
 	window->common.incRef(&window->common);
 	_nativewindows.push_back(window);
 
-	return (EGLNativeWindowType) static_cast<struct ANativeWindow *>(window);
+	return (EGLNativeWindowType) window;
 }
 
 extern "C" void hwcomposerws_DestroyWindow(EGLNativeWindowType win)
 {
-	HWComposerNativeWindow *window = static_cast<HWComposerNativeWindow *>((ANativeWindow *) win);
+	ANativeWindow *window = static_cast<ANativeWindow *>((ANativeWindow *) win);
 	std::lock_guard<std::mutex> lock(_nativewindows_mutex);
 
-	std::vector<HWComposerNativeWindow *>::iterator it = std::find(_nativewindows.begin(),
+	std::vector<ANativeWindow *>::iterator it = std::find(_nativewindows.begin(),
 		_nativewindows.end(), window);
 	if (it != _nativewindows.end()) {
 		window->common.decRef(&window->common);
